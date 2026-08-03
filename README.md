@@ -11,12 +11,12 @@ This repo does NOT include the frontend or backend - see the other repos in this
 
 ## Quick start
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
 export TWELVE_DATA_API_KEY=your_key_here
 python scripts/pull_and_check.py       # pulls fresh price data for all 50 tickers
 python scripts/run_nightly_batch.py    # trains, evaluates, predicts, and sends (or dry-runs)
-\`\`\`
+```
 
 See `DEPLOYMENT.md` for how this runs in production.
 
