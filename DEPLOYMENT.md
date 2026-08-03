@@ -40,12 +40,12 @@ during development; Render just doesn't read one from the repo at runtime.
 
 ## Running locally
 
-\`\`\`bash
+```bash
 pip install -r requirements.txt
 export TWELVE_DATA_API_KEY=your_key_here
 python scripts/pull_and_check.py
 python scripts/run_nightly_batch.py
-\`\`\`
+```
 
 With `BATCH_ENDPOINT_URL` unset, this is fully safe to run repeatedly - it never sends
 anything anywhere, just builds and saves the payload locally so you can inspect it.
@@ -55,9 +55,9 @@ anything anywhere, just builds and saves the payload locally so you can inspect 
 1. Create a new **Cron Job** service (not a Web Service) in Render, pointed at this repo
 2. Build command: `pip install -r requirements.txt`
 3. Command to run on schedule:
-   \`\`\`
+   ```
    python scripts/pull_and_check.py && python scripts/run_nightly_batch.py
-   \`\`\`
+   ```
 4. Set environment variables in the Render dashboard: `TWELVE_DATA_API_KEY` and
    `BATCH_ENDPOINT_URL` (the backend's real deployed URL, once it exists)
 5. Set the schedule - remember Render's cron schedule is evaluated in UTC, so convert
