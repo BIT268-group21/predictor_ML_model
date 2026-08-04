@@ -116,11 +116,6 @@ def build_nightly_payload():
 def send_or_dry_run(payload):
     url = os.environ.get('BATCH_ENDPOINT_URL', '').strip()
     timeout = int(os.environ.get('BATCH_TIMEOUT_SECONDS', '30'))
-    headers = {"Authorization": f"Bearer {os.environ['BATCH_AUTH_TOKEN']}"}
-    print(f"Posting batch to {url} ...")
-    resp = requests.post(url, json=payload, headers=headers, timeout=timeout)
-    print(f"Response: {resp.status_code} {resp.text[:500]}")
-    resp.raise_for_status()
 
     if not payload['predictions']:
         raise RuntimeError(
@@ -142,12 +137,11 @@ def send_or_dry_run(payload):
         print("BATCH_ENDPOINT_URL not set -> DRY RUN. Payload built and saved locally, nothing sent over the network.")
         return
 
-    import requests
+    headers = {"Authorization": f"Bearer {os.environ['BATCH_AUTH_TOKEN']}"}
     print(f"Posting batch to {url} ...")
-    resp = requests.post(url, json=payload, timeout=timeout)
+    resp = requests.post(url, json=payload, headers=headers, timeout=timeout)
     print(f"Response: {resp.status_code} {resp.text[:500]}")
     resp.raise_for_status()
-
 
 def main():
     print(f"Nightly batch job starting at {datetime.now(timezone.utc).isoformat()}")
