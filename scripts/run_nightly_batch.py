@@ -37,6 +37,7 @@ import os
 import sys
 import json
 from datetime import datetime, timezone
+import requests
 
 sys.path.insert(0, os.path.dirname(__file__))
 from features import engineer_features
@@ -115,6 +116,11 @@ def build_nightly_payload():
 def send_or_dry_run(payload):
     url = os.environ.get('BATCH_ENDPOINT_URL', '').strip()
     timeout = int(os.environ.get('BATCH_TIMEOUT_SECONDS', '30'))
+    headers = {"Authorization": f"Bearer {os.environ['BATCH_AUTH_TOKEN']}"}
+    print(f"Posting batch to {url} ...")
+    resp = requests.post(url, json=payload, headers=headers, timeout=timeout)
+    print(f"Response: {resp.status_code} {resp.text[:500]}")
+    resp.raise_for_status()
 
     if not payload['predictions']:
         raise RuntimeError(
