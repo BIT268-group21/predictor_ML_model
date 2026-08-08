@@ -11,3 +11,5 @@ scripts/__pycache__/build_payload.cpython-313.pyc
 scripts/__pycache__/features.cpython-313.pyc
 scripts/__pycache__/selection.cpython-313.pyc
 scripts/__pycache__/training.cpython-313.pyc
+data/backtest_payloads/
+
